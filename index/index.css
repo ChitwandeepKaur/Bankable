@@ -1,0 +1,59 @@
+.desc {
+    padding-top: 4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+table {
+    margin-top: 3rem;
+    width: 100%;
+}
+
+td{
+    width: 50%;
+}
+
+table p{
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+li {
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-left: 25px;
+}
+
+.tableDivs {
+    width: 90%;
+    padding: 2rem;
+    margin: auto;
+    border-radius: 10px;
+    height: 30vh;
+}
+
+.tableDivs p {
+    font-weight: 600;
+}
+
+.features {
+    background-image: linear-gradient(to top left, #44b489, #a1e366);
+}
+
+.functionOptions {
+    background-color: white;
+    text-align: center;
+}
+
+.functionOptions a {
+    display: inline-block;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: large;
+    color: black;
+}
+
+.footer {
+    margin-top: 10%;
+    text-align: center;
+}

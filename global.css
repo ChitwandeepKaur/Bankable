@@ -1,0 +1,25 @@
+body {
+    color: #444;
+    background-color: #efeeee;
+    height: 100vh;
+    padding: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 15%;
+    height: 15%;
+}
+
+main {
+    margin: 2rem;
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+    padding: 1rem;
+}
