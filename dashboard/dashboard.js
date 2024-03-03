@@ -4,7 +4,9 @@ const currentUser = JSON.parse(localStorage.getItem('users'))[Number(localStorag
       transferToField = document.querySelector('.form__input--to'),
       transferForm = document.querySelector('.form--transfer'),
       transferAmount = document.querySelector('.form__input--amount'),
-      usernameRegex = /^[a-zA-Z0-9]{7,20}$/
+      usernameRegex = /^[a-zA-Z0-9]{7,20}$/,
+      loanForm = document.querySelector('.form--loan'),
+      loanAmount = document.querySelector('.form__loan--amount')
 
 let sortedArray = [], noOfFilters = 0, noOfSorts = 0, sortedMap = new Map(), movementValues = []
 
@@ -138,6 +140,9 @@ The username can have lower case and upper case characters and numbers.`)
     else {
         const transferedTo = users.filter((curr)=>{
             return curr.username === transferToField.value
+        })[0],
+        transferedFrom = users.filter((curr)=>{
+            return curr.username === currentUser.username
         })[0]
         let desc = window.prompt('Give additional description related to this transfer:')
         if(!desc) {
@@ -153,6 +158,12 @@ The username can have lower case and upper case characters and numbers.`)
                 desc: desc
             })
             currentUser.movements.push({
+                amount: -Number(transferAmount.value),
+                source: transferToField.value,
+                timestamp: new Date(),
+                desc: desc
+            })
+            transferedFrom.movements.push({
                 amount: -Number(transferAmount.value),
                 source: transferToField.value,
                 timestamp: new Date(),
@@ -178,3 +189,35 @@ function clearTransferForm(){
 function updateUsers(users){
     localStorage.setItem('users', JSON.stringify(users))
 }
+
+loanForm.addEventListener('submit', (e)=>{
+    const loan = loanAmount.value
+    e.preventDefault()
+    if(loan > getBalance()) window.alert('You cannot request loan amount more than you have in your account.')
+    else {
+        window.alert('Your loan will be approved soon...Please wait.')
+        setTimeout(function(){
+            const users = JSON.parse(localStorage.getItem('users')),
+            loanRequestedFrom = users.filter((curr)=>{
+                return curr.username === currentUser.username
+            })[0]
+                currentUser.movements.push({
+                    amount: Number(loan),
+                    source: 'Loan',
+                    timestamp: new Date(),
+                    desc: 'Loan amount requested from bank'
+                })
+                loanRequestedFrom.m`ovements.push({
+                    amount: Number(loan),
+                    source: 'Loan',
+                    timestamp: new Date(),
+                    desc: 'Loan amount requested from bank'
+                })
+                displayMovements(currentUser.movements)
+                getBalance()
+                updateUsers(users)
+                window.alert('Your Loan has been approved')
+        }, 3000)
+    }
+    loanAmount.value = ''
+})

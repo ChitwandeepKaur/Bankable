@@ -50,7 +50,7 @@
             </div>
             <!-- <div class="col-lg-1"></div> -->
             <div class="col-lg-5 col-md-12">
-                <div class="operation operation--transfer m-auto mb-4">
+                <div class="operation operation--transfer m-auto mb-4 mt-4">
                     <h4>Transfer money</h4>
                     <form class="form form--transfer">
                         <input type="text" class="form__input form__input--to"/>
@@ -61,21 +61,21 @@
                     </form>
                 </div>
         
-                <div class="operation operation--loan m-auto mb-4">
+                <div class="operation operation--loan m-auto mb-4 mt-2">
                     <h4>Request loan</h4>
                     <form class="form form--loan">
-                        <input type="number" class="form__input" />
+                        <input type="number" class="form__input form__loan--amount" />
                         <button class="btn btn-light">&rarr;</button>
                         <label class="form__label form__label--loan">Amount</label>
                     </form>
                 </div>
         
-                <div class="operation operation--close m-auto mb-4">
+                <div class="operation operation--close m-auto mb-4 mt-2">
                     <h4>Close account</h4>
                     <form class="form form--close">
                         <input type="text" class="form__input" />
                         <input type="password" maxlength="4" class="form__input"/>
-                        <button class="btn btn-light">&rarr;</button>
+                        <button class="btn btn-light" type="submit">&rarr;</button>
                         <label class="form__label">Confirm user</label>
                         <label class="form__label">Confirm PIN</label>
                     </form>
