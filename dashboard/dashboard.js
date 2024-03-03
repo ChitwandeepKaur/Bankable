@@ -6,7 +6,10 @@ const currentUser = JSON.parse(localStorage.getItem('users'))[Number(localStorag
       transferAmount = document.querySelector('.form__input--amount'),
       usernameRegex = /^[a-zA-Z0-9]{7,20}$/,
       loanForm = document.querySelector('.form--loan'),
-      loanAmount = document.querySelector('.form__loan--amount')
+      loanAmount = document.querySelector('.form__loan--amount'),
+      deleteForm = document.querySelector('.form--close'),
+      deleteUser = document.querySelector('.form__input--deleteUser'),
+      confirmPin = document.querySelector('.form__input--pin')
 
 let sortedArray = [], noOfFilters = 0, noOfSorts = 0, sortedMap = new Map(), movementValues = []
 
@@ -150,7 +153,7 @@ The username can have lower case and upper case characters and numbers.`)
         }
         console.log(currentUser.pin)
         const enteredPIN = Number(window.prompt("Enter your PIN to complete your transaction"))
-        if(Number(enteredPIN) === Number(currentUser.pin)){
+        if(enteredPIN === Number(currentUser.pin)){
             transferedTo.movements.push({
                 amount: Number(transferAmount.value),
                 source: currentUser.username,
@@ -221,3 +224,38 @@ loanForm.addEventListener('submit', (e)=>{
     }
     loanAmount.value = ''
 })
+
+deleteForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    if(!deleteUser.value || !confirmPin.value){
+        window.alert('Enter your username and PIN to delete your account')
+        clearLoanForm()
+    }
+    else if(deleteUser.value !== currentUser.username){
+        window.alert('Username invalid. You can only delete your own account!')
+        clearLoanForm()
+    }
+    else if (Number(confirmPin.value) !== Number(currentUser.pin)) {
+        window.alert('Wrong PIN entered')
+        clearLoanForm()
+    }
+    else {
+        if(window.confirm('Are you sure you want to delete your account?')){
+            const newUsers = JSON.parse(localStorage.getItem('users')).filter((curr)=>{
+                return curr.username !== currentUser.username
+            })
+            updateUsers(newUsers)
+            localStorage.removeItem('currentUser')
+            const newUsersMap = new Map(JSON.parse(localStorage.getItem('userpins')))
+            newUsersMap.delete(currentUser.username)
+            localStorage.setItem('userpins',JSON.stringify([...newUsersMap]))
+            window.location.href = '../index/index.html'
+        }
+        clearLoanForm()
+    }
+})
+
+function clearLoanForm(){
+    deleteUser.value = ''
+    confirmPin.value = ''
+}
