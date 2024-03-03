@@ -11,9 +11,84 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-    DASHBOARD
+    <nav>
+        <img src="../images/logo.png" alt="Logo" class="logo" />
+    </nav>
+    <div class="mainSection m-5">
+        <div class="row">
+            <div class="col-6">
+                <h4>Welcome back <span id="userName"></span></h4>
+                <h5>Balance: INR <span id="userBalance"></span></h5>
+            </div>
+            <div class="col-6 text-end">
+                <button class="btn btn-success" onclick="signOutUser()">Sign out <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                <br>
+                <span style="font-size: small;">Last Login session: <span class="lastLogin"></span> </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7 col-md-12 mb-4 mt-4">
+                <div class="text-end mt-2 mb-3 sortFilter">
+                    <button class="btn">
+                        <input type="checkbox" id="loansCheck" class="form-check-input" onclick="loansFilter()"> 
+                        <label class="form-check-label" for="loansCheck">Loans</label>
+                    </button>
+                    <button class="btn">
+                        <i class="fa-solid fa-sort fa-2xl sort" onclick="sortMovements()" title="Sort based on amount"></i>
+                    </button>
+                    
+                    <button class="btn">
+                        <i class="fa-solid fa-2xl fa-filter filter" onclick="filterMovements()" title="Filter based on withdrawl/deposit"></i>
+                    </button>
+                    <button class="btn">
+                        <i class="fa-solid fa-2xl fa-xmark filter" onclick="displayMovements(currentUser.movements)" title="Clear all filters"></i>
+                    </button>
+                </div>
+                <div id="movements">
+                    
+                </div>
+            </div>
+            <!-- <div class="col-lg-1"></div> -->
+            <div class="col-lg-5 col-md-12">
+                <div class="operation operation--transfer m-auto mb-4">
+                    <h4>Transfer money</h4>
+                    <form class="form form--transfer">
+                        <input type="text" class="form__input form__input--to"/>
+                        <input type="number" class="form__input form__input--amount"/>
+                        <button class="btn btn-light" type="submit">&rarr;</button>
+                        <label class="form__label">Transfer to</label>
+                        <label class="form__label">Amount</label>
+                    </form>
+                </div>
+        
+                <div class="operation operation--loan m-auto mb-4">
+                    <h4>Request loan</h4>
+                    <form class="form form--loan">
+                        <input type="number" class="form__input" />
+                        <button class="btn btn-light">&rarr;</button>
+                        <label class="form__label form__label--loan">Amount</label>
+                    </form>
+                </div>
+        
+                <div class="operation operation--close m-auto mb-4">
+                    <h4>Close account</h4>
+                    <form class="form form--close">
+                        <input type="text" class="form__input" />
+                        <input type="password" maxlength="4" class="form__input"/>
+                        <button class="btn btn-light">&rarr;</button>
+                        <label class="form__label">Confirm user</label>
+                        <label class="form__label">Confirm PIN</label>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 
     <!-- Bootstrap added -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5e10591f07.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

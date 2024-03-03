@@ -9,6 +9,15 @@ loginForm.addEventListener('submit', (e) => {
     const username = data[0].value,
           userPIN  = data[1].value
     if(usersMap.has(username) && usersMap.get(username) === userPIN){
+        for(const user of users){
+            if(user.username === username){
+                currentUser = String(users.indexOf(user))
+                user.lastLoginSession[1]++
+                if(user.lastLoginSession[1] !== 1) user.lastLoginSession[0] = new Date()
+                localStorage.setItem('users', JSON.stringify(users))
+            }
+        }
+        localStorage.setItem('currentUser', currentUser)
         window.alert('Login successful')
         window.location.href = '../dashboard/dashboard.html'
     }
@@ -24,5 +33,5 @@ function showPassword() {
     if (pin.type === 'password') pin.type = "text"
     else pin.type = "password"
 }
-//use the reduce method to calculate the balnace of the account
+
 //change window alerts to dialog boxes.

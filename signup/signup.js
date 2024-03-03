@@ -15,7 +15,6 @@ The username can have lower case and upper case characters and numbers.`)
     else if(!pinRegex.test(data[3].value)) window.alert('PIN should be a 4 digit number')
     else if(usersMap.has(String(data[0].value))) window.alert('Username already exists')
     else createNewUserName(data)
-    //info box on focusing on input
 
 })
 
@@ -25,6 +24,14 @@ const createNewUserName = function (data){
         firstName: data[1].value,
         lastName: data[2].value,
         pin: data[3].value,
+        movements: [{
+            amount: 10000,
+            source: 'Bankable',
+            timestamp : new Date(),
+            desc: 'This is a sign up bonus provided by the bank, welcoming you onboard.'
+
+        }],
+        lastLoginSession: [null, 0]
     })
 
     usersMap.set(data[0].value, data[3].value)
@@ -32,7 +39,8 @@ const createNewUserName = function (data){
     localStorage.setItem('users', JSON.stringify(users))
 
     //add age
-    window.alert(`User Created Successfully.
+    window.alert(`User Created Successfully. 
+A Rs1000 has been added to your account as sign up bonus.
 You will now be redirected to the Login Page`)
 
     window.location.href='../login/login.html'
@@ -44,8 +52,13 @@ function validatePassword() {
           confirm_pass = document.getElementById('confirmPin').value,
           wrong_pass_alert = document.getElementById('wrong_pass_alert'),
           submitBtn =  document.getElementById('submitBtn')
-
-    if (pass !== confirm_pass) {
+    
+    if(pass === '') {
+        wrong_pass_alert.innerHTML   = ''
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = (1);
+    }
+else if (pass !== confirm_pass) {
         wrong_pass_alert.style.color = 'red'
         wrong_pass_alert.innerHTML   = '☒ Use same password'
         submitBtn.disabled = true;
