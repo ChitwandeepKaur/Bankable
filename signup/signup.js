@@ -10,25 +10,24 @@ signUpForm.addEventListener('submit', (e) => {
     const data = signUpForm.elements
     data[3].value = Number(data[3].value)
 
-    if(!usernameRegex.test(data[0].value)) window.alert(`Username should be between 7 and 20 charaters!
+    if(!usernameRegex.test(data[0].value))       window.alert(`Username should be between 7 and 20 charaters!
 The username can have lower case and upper case characters and numbers.`)
-    else if(!pinRegex.test(data[3].value)) window.alert('PIN should be a 4 digit number')
+    else if(!pinRegex.test(data[3].value))       window.alert('PIN should be a 4 digit number')
     else if(usersMap.has(String(data[0].value))) window.alert('Username already exists')
     else createNewUserName(data)
-
 })
 
 const createNewUserName = function (data){
     users.push({
-        username: data[0].value,
-        firstName: data[1].value,
-        lastName: data[2].value,
-        pin: data[3].value,
-        movements: [{
-            amount: 10000,
-            source: 'Bankable',
+        username  : data[0].value,
+        firstName : data[1].value,
+        lastName  : data[2].value,
+        pin       : data[3].value,
+        movements : [{
+            amount    : 10000,
+            source    : 'Bankable',
             timestamp : new Date(),
-            desc: 'This is a sign up bonus provided by the bank, welcoming you onboard.'
+            desc      : 'This is a sign up bonus provided by the bank, welcoming you onboard.'
 
         }],
         lastLoginSession: [null, 0]
@@ -38,7 +37,6 @@ const createNewUserName = function (data){
     localStorage.setItem('userpins',JSON.stringify([...usersMap]))
     localStorage.setItem('users', JSON.stringify(users))
 
-    //add age
     window.alert(`User Created Successfully. 
 A Rs1000 has been added to your account as sign up bonus.
 You will now be redirected to the Login Page`)
@@ -48,38 +46,38 @@ You will now be redirected to the Login Page`)
 
 function validatePassword() {
  
-    const pass         = document.getElementById('pin').value,
-          confirm_pass = document.getElementById('confirmPin').value,
+    const pass             = document.getElementById('pin').value,
+          confirm_pass     = document.getElementById('confirmPin').value,
           wrong_pass_alert = document.getElementById('wrong_pass_alert'),
-          submitBtn =  document.getElementById('submitBtn')
+          submitBtn        =  document.getElementById('submitBtn')
     
     if(pass === '') {
-        wrong_pass_alert.innerHTML   = ''
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = (1);
+        wrong_pass_alert.innerHTML = ''
+        submitBtn.disabled         = false
+        submitBtn.style.opacity    = 1
     }
-else if (pass !== confirm_pass) {
+    else if (pass !== confirm_pass) {
         wrong_pass_alert.style.color = 'red'
         wrong_pass_alert.innerHTML   = '☒ Use same password'
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = (0.4);
+        submitBtn.disabled           = true
+        submitBtn.style.opacity      = 0.4
     } else {
-        wrong_pass_alert.style.color = 'green';
-        wrong_pass_alert.innerHTML =
-            '✅ Password Matched';
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = (1);
+        wrong_pass_alert.style.color = 'green'
+        wrong_pass_alert.innerHTML   = '✅ Password Matched'
+        submitBtn.disabled           = false
+        submitBtn.style.opacity      = 1
     }
 }
 
 function showPassword() {
     const confirmPin = document.getElementById("confirmPin"),
           pin        = document.getElementById("pin")
+
     if (confirmPin.type === "password" && pin.type === 'password') {
         confirmPin.type = "text"
-        pin.type = "text"
+        pin.type        = "text"
     } else {
       confirmPin.type = "password"
-      pin.type = "password"
+      pin.type        = "password"
     }
 }

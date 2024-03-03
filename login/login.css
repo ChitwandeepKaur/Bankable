@@ -1,33 +1,33 @@
 .login{
-    width: 95vw;
-    height: 80vh;
+    width  : 95vw;
+    height : 80vh;
 }
 
 .loginElems {
-    background-color: white;
-    text-align: center;
-    width: 50%;
-    padding: 3rem;
-    margin: auto;
-    border-radius: 10px;
-    margin-top: 50px;
+    background-color : white;
+    text-align       : center;
+    width            : 50%;
+    padding          : 3rem;
+    margin           : auto;
+    border-radius    : 10px;
+    margin-top       : 50px;
 }
 
 .loginElems h4 {
-    font-weight: 600;
-    margin-bottom: 30px;
+    font-weight   : 600;
+    margin-bottom : 30px;
 }
 
 a {
-    color: green !important
+    color : green !important
 }
 
 .form-group {
-    margin-bottom: 30px;
+    margin-bottom : 30px;
 }
 
 @media screen and (max-width: 950px){
     .loginElems {
-        width: 75%;
+        width : 75%;
     }
 }

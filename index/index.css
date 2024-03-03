@@ -1,55 +1,55 @@
 .desc {
-    padding-top: 3rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    text-align: center;
+    padding-top   : 3rem;
+    padding-left  : 0.5rem;
+    padding-right : 0.5rem;
+    text-align    : center;
 }
 
 table {
-    margin-top: 3rem;
-    width: 100%;
-    margin-bottom: 3%;
+    margin-top    : 3rem;
+    width         : 100%;
+    margin-bottom : 3%;
 }
 
 td{
-    width: 50%;
+    width : 50%;
 }
 
 table p{
-    font-size: 22px;
-    margin-bottom: 25px;
+    font-size     : 22px;
+    margin-bottom : 25px;
 }
 
 li {
-    font-size: 15px;
-    margin-bottom: 20px;
-    margin-left: 25px;
+    font-size     : 15px;
+    margin-bottom : 20px;
+    margin-left   : 25px;
 }
 
 .tableDivs {
-    width: 90%;
-    padding: 2rem;
-    margin: auto;
-    border-radius: 10px;
+    width         : 90%;
+    padding       : 2rem;
+    margin        : auto;
+    border-radius : 10px;
 }
 
 .tableDivs p {
-    font-weight: 600;
+    font-weight : 600;
 }
 
 .features {
-    background-image: linear-gradient(to top left, #44b489, #a1e366);
+    background-image : linear-gradient(to top left, #44b489, #a1e366);
 }
 
 .functionOptions {
-    background-color: white;
-    text-align: center;
+    background-color : white;
+    text-align       : center;
 }
 
 .functionOptions a {
-    display: inline-block;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    font-size: large;
-    color: black;
+    display       : inline-block;
+    margin-top    : 25px;
+    margin-bottom : 25px;
+    font-size     : large;
+    color         : black;
 }

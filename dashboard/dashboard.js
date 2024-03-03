@@ -1,30 +1,43 @@
 const currentUser = JSON.parse(localStorage.getItem('users'))[Number(localStorage.getItem('currentUser'))],
+      usernameRegex = /^[a-zA-Z0-9]{7,20}$/,
       movementsContainer = document.querySelector('#movements'),
       lastLogin = document.querySelector('.lastLogin'),
       transferToField = document.querySelector('.form__input--to'),
-      transferForm = document.querySelector('.form--transfer'),
-      transferAmount = document.querySelector('.form__input--amount'),
-      usernameRegex = /^[a-zA-Z0-9]{7,20}$/,
-      loanForm = document.querySelector('.form--loan'),
+      transferForm    = document.querySelector('.form--transfer'),
+      transferAmount  = document.querySelector('.form__input--amount'),
+      loanForm   = document.querySelector('.form--loan'),
       loanAmount = document.querySelector('.form__loan--amount'),
       deleteForm = document.querySelector('.form--close'),
       deleteUser = document.querySelector('.form__input--deleteUser'),
-      confirmPin = document.querySelector('.form__input--pin')
+      confirmPin = document.querySelector('.form__input--pin'),
+      LOGOUT_TIME = 5 * 60 * 1000;
 
-let sortedArray = [], noOfFilters = 0, noOfSorts = 0, sortedMap = new Map(), movementValues = []
+let sortedArray = [], 
+    noOfFilters = 0, 
+    noOfSorts   = 0, 
+    sortedMap   = new Map(), 
+    movementValues = []
 
 document.getElementById('userName').innerText = `${currentUser.firstName.slice(0,1).toUpperCase().concat(currentUser.firstName.slice(1))} ${currentUser.lastName.slice(0,1).toUpperCase().concat(currentUser.lastName.slice(1))}!`
 if(currentUser.lastLoginSession[1] === 1) lastLogin.innerText = 'NA'
 else lastLogin.innerText = `${formatDate(currentUser.lastLoginSession[0])}`
 
-
+logoutTimer()
 displayMovements(currentUser.movements)
 getBalance()
+
+function logoutTimer(){
+    setTimeout(function(){
+        window.alert('Your timed session is over. Logging you out now...')
+        localStorage.removeItem('currentUser')
+        window.location.href = '../index/index.html'
+    }, LOGOUT_TIME);
+}
 
 function displayMovements(movements) {
     movementsContainer.innerHTML = ''
     sortedMap.clear()
-    sortedArray = []
+    sortedArray    = []
     movementValues = []
     movements.forEach(function(mov, i){
       movementsContainer.insertAdjacentHTML('afterbegin', `
@@ -46,19 +59,17 @@ function displayMovements(movements) {
         </div>
       </div>
       `)
-      movementValues.push(mov.amount)
       sortedMap.set(String(mov.amount), JSON.stringify(mov))
+      movementValues.push(mov.amount)
       sortedArray.push(mov)
     })
   }
 
-  function getBalance(){
+function getBalance(){
     let balance = movementValues.reduce((acc, curr)=>acc + curr, 0)
     document.getElementById('userBalance').innerText = balance
     return balance
-  }
-
-
+}
 
 const signOutUser = function (){
     localStorage.removeItem('currentUser')
@@ -90,7 +101,7 @@ function filterMovements() {
 
 function sortMovements() {
     for(let key of sortedMap.keys()){
-        if(Number(key)<0){
+        if(Number(key) < 0){
             const newKey = String(Math.abs(Number(key)))
             sortedMap.set(newKey, sortedMap.get(key))
             sortedMap.delete(key)
@@ -104,6 +115,7 @@ function sortMovements() {
     }
 
     sortedArray = []
+
     for(let value of sortedMap.values()) sortedArray.push(JSON.parse(value))
     displayMovements(sortedArray)
 }
@@ -113,6 +125,7 @@ function loansFilter(){
         sortedArray = currentUser.movements.filter(function(curr){
             return curr.source==='Loan'
         })
+    
     displayMovements(sortedArray)
     }
     else displayMovements(currentUser.movements)
@@ -147,30 +160,31 @@ The username can have lower case and upper case characters and numbers.`)
         transferedFrom = users.filter((curr)=>{
             return curr.username === currentUser.username
         })[0]
+
         let desc = window.prompt('Give additional description related to this transfer:')
         if(!desc) {
             desc = 'Default Description (A desc wasnot provided by the user'
         }
-        console.log(currentUser.pin)
+
         const enteredPIN = Number(window.prompt("Enter your PIN to complete your transaction"))
         if(enteredPIN === Number(currentUser.pin)){
             transferedTo.movements.push({
-                amount: Number(transferAmount.value),
-                source: currentUser.username,
-                timestamp: new Date(),
-                desc: desc
+                amount    : Number(transferAmount.value),
+                source    : currentUser.username,
+                timestamp : new Date(),
+                desc      : desc
             })
             currentUser.movements.push({
-                amount: -Number(transferAmount.value),
-                source: transferToField.value,
-                timestamp: new Date(),
-                desc: desc
+                amount    : -Number(transferAmount.value),
+                source    : transferToField.value,
+                timestamp : new Date(),
+                desc      : desc
             })
             transferedFrom.movements.push({
-                amount: -Number(transferAmount.value),
-                source: transferToField.value,
-                timestamp: new Date(),
-                desc: desc
+                amount    : -Number(transferAmount.value),
+                source    : transferToField.value,
+                timestamp : new Date(),
+                desc      : desc
             })
             window.alert('Transaction Complete')
             displayMovements(currentUser.movements)
@@ -185,7 +199,7 @@ The username can have lower case and upper case characters and numbers.`)
 })
 
 function clearTransferForm(){
-    transferAmount.value = ''
+    transferAmount.value  = ''
     transferToField.value = ''
 }
 
@@ -194,8 +208,8 @@ function updateUsers(users){
 }
 
 loanForm.addEventListener('submit', (e)=>{
-    const loan = loanAmount.value
     e.preventDefault()
+    const loan = loanAmount.value
     if(loan > getBalance()) window.alert('You cannot request loan amount more than you have in your account.')
     else {
         window.alert('Your loan will be approved soon...Please wait.')
@@ -205,16 +219,16 @@ loanForm.addEventListener('submit', (e)=>{
                 return curr.username === currentUser.username
             })[0]
                 currentUser.movements.push({
-                    amount: Number(loan),
-                    source: 'Loan',
-                    timestamp: new Date(),
-                    desc: 'Loan amount requested from bank'
+                    amount    : Number(loan),
+                    source    : 'Loan',
+                    timestamp : new Date(),
+                    desc      : 'Loan amount requested from bank'
                 })
                 loanRequestedFrom.movements.push({
-                    amount: Number(loan),
-                    source: 'Loan',
-                    timestamp: new Date(),
-                    desc: 'Loan amount requested from bank'
+                    amount    : Number(loan),
+                    source    : 'Loan',
+                    timestamp : new Date(),
+                    desc      : 'Loan amount requested from bank'
                 })
                 displayMovements(currentUser.movements)
                 getBalance()

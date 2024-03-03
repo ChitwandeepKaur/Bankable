@@ -5,8 +5,8 @@ const users     = JSON.parse(localStorage.getItem('users')),
 //Login Page Code
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    const data = loginForm.elements
-    const username = data[0].value,
+    const data     = loginForm.elements,
+          username = data[0].value,
           userPIN  = data[1].value
     if(usersMap.has(username) && usersMap.get(username) === userPIN){
         for(const user of users){
@@ -33,5 +33,3 @@ function showPassword() {
     if (pin.type === 'password') pin.type = "text"
     else pin.type = "password"
 }
-
-//change window alerts to dialog boxes.
