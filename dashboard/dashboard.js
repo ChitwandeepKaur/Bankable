@@ -207,7 +207,7 @@ loanForm.addEventListener('submit', (e)=>{
                     timestamp: new Date(),
                     desc: 'Loan amount requested from bank'
                 })
-                loanRequestedFrom.m`ovements.push({
+                loanRequestedFrom.movements.push({
                     amount: Number(loan),
                     source: 'Loan',
                     timestamp: new Date(),
