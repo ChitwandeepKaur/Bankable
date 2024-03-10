@@ -10,7 +10,7 @@ const currentUser = JSON.parse(localStorage.getItem('users'))[Number(localStorag
       deleteForm = document.querySelector('.form--close'),
       deleteUser = document.querySelector('.form__input--deleteUser'),
       confirmPin = document.querySelector('.form__input--pin'),
-      LOGOUT_TIME = 5 * 60 * 1000;
+      LOGOUT_TIME = 1 * 30 * 1000;
 
 let sortedArray = [], 
     noOfFilters = 0, 
@@ -27,11 +27,23 @@ displayMovements(currentUser.movements)
 getBalance()
 
 function logoutTimer(){
-    setTimeout(function(){
-        window.alert('Your timed session is over. Logging you out now...')
-        localStorage.removeItem('currentUser')
-        window.location.href = '../index/index.html'
-    }, LOGOUT_TIME);
+    let timeLeft = LOGOUT_TIME;
+    logoutTimer = setInterval(() => {
+        timeLeft -= 1000;
+        if (timeLeft === 0) {
+            localStorage.removeItem('currentUser')
+            window.alert('Your timed session is over. Logging you out now...')
+            window.location.href = '../index/index.html'
+        } else {
+            updateTimer(timeLeft);
+        }
+    }, 1000);
+}
+
+function updateTimer(time) {
+    const minutes = Math.floor(time / 60000);
+    const seconds = Math.floor((time % 60000) / 1000);
+    document.querySelector('.countdown').innerText = `${minutes}m ${seconds}s`;
 }
 
 function displayMovements(movements) {

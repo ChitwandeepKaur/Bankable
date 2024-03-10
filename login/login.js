@@ -18,7 +18,7 @@ loginForm.addEventListener('submit', (e) => {
             }
         }
         localStorage.setItem('currentUser', currentUser)
-        window.alert('Login successful. You will be logged out automatically after 5 mins')
+        window.alert('Login successful')
         window.location.href = '../dashboard/dashboard.html'
     }
     else if(usersMap.has(username) && usersMap.get(username) !== userPIN) window.alert('Password incorrect')
